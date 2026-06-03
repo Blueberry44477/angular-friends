@@ -1,0 +1,43 @@
+<form [formGroup]="loginForm" (submit)="onSubmit()">
+    <fieldset>
+        <legend>Login</legend>
+
+        <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email"/>
+
+            @if(loginForm.controls['email'].invalid && 
+                loginForm.controls['email'].touched
+            ) {
+                <div class="error">
+                    @if(loginForm.controls['email'].errors?.['required']) {
+                        <span>Email is required</span>
+                    }
+                    @if(loginForm.controls['email'].errors?.['email']) {
+                        <span>Email is invalid</span>
+                    }
+                </div>
+            }
+        </div>
+
+        @let passwordCtrl = loginForm.controls['password'];
+        <div class="form-field">
+            <label for="password">Password</label>
+            <input id="password" type="password" formControlName="password">
+
+            @if(passwordCtrl.invalid && passwordCtrl.touched) {
+                <div class="error">
+                    @if(passwordCtrl.errors?.['required']) {
+                        <span>Password is required</span>
+                    }
+
+                    @if(passwordCtrl.errors?.['minlength']) {
+                        <span>Password must be at least 6 symbols</span>
+                    }
+                </div>
+            }
+        </div>
+
+        <button type="submit">Login</button>
+    </fieldset>
+</form>
