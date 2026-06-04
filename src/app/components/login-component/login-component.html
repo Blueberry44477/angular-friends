@@ -2,18 +2,17 @@
     <fieldset>
         <legend>Login</legend>
 
+        @let emailCtrl = loginForm.controls['email'];
         <div class="form-field">
             <label for="email">Email</label>
             <input id="email" type="email" formControlName="email"/>
 
-            @if(loginForm.controls['email'].invalid && 
-                loginForm.controls['email'].touched
-            ) {
+            @if (emailCtrl.invalid && emailCtrl.touched) {
                 <div class="error">
-                    @if(loginForm.controls['email'].errors?.['required']) {
+                    @if (emailCtrl.errors?.['required']) {
                         <span>Email is required</span>
                     }
-                    @if(loginForm.controls['email'].errors?.['email']) {
+                    @if (emailCtrl.errors?.['email']) {
                         <span>Email is invalid</span>
                     }
                 </div>
@@ -25,13 +24,13 @@
             <label for="password">Password</label>
             <input id="password" type="password" formControlName="password">
 
-            @if(passwordCtrl.invalid && passwordCtrl.touched) {
+            @if (passwordCtrl.invalid && passwordCtrl.touched) {
                 <div class="error">
-                    @if(passwordCtrl.errors?.['required']) {
+                    @if (passwordCtrl.errors?.['required']) {
                         <span>Password is required</span>
                     }
 
-                    @if(passwordCtrl.errors?.['minlength']) {
+                    @if (passwordCtrl.errors?.['minlength']) {
                         <span>Password must be at least 6 symbols</span>
                     }
                 </div>
