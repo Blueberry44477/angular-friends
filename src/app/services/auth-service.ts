@@ -3,7 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
-export interface LoginCredentials {
+interface SignInData {
   email: string,
   password: string
 }
@@ -14,13 +14,13 @@ export interface LoginCredentials {
 export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
-  private apiUrl = 'http://localhost:8080/api/v1/auth/signin';
+  private apiUrl = 'http://localhost:8080/api/v1/auth';
 
   private _isAuthenticated = signal<boolean>(this.hasToken());
   public isAuthenticated = this._isAuthenticated.asReadonly();
 
-  public login(credentials: LoginCredentials): Observable<string> {
-    return this.http.post(this.apiUrl, credentials, {responseType: 'text'}).pipe(
+  public signIn(data: SignInData): Observable<string> {
+    return this.http.post(`${this.apiUrl}/signin}`, data, {responseType: 'text'}).pipe(
       tap((token) => {
         localStorage.setItem('token', token);
         this._isAuthenticated.set(true);

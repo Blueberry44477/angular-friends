@@ -1,9 +1,9 @@
-<form [formGroup]="loginForm" (submit)="onSubmit()">
+<form [formGroup]="signInForm" (submit)="onSubmit()">
     <fieldset>
-        <legend>Login</legend>
+        <legend>Sign In</legend>
 
-        @let emailCtrl = loginForm.controls['email'];
-        <div class="form-field">
+        @let emailCtrl = signInForm.controls['email'];
+        <div class="form__field">
             <label for="email">Email</label>
             <input id="email" type="email" formControlName="email"/>
 
@@ -19,8 +19,8 @@
             }
         </div>
 
-        @let passwordCtrl = loginForm.controls['password'];
-        <div class="form-field">
+        @let passwordCtrl = signInForm.controls['password'];
+        <div class="form__field">
             <label for="password">Password</label>
             <input id="password" type="password" formControlName="password">
 
@@ -37,6 +37,6 @@
             }
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit">Sign In</button>
     </fieldset>
 </form>

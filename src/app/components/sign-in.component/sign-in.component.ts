@@ -5,35 +5,35 @@ import { AuthService } from '../../services/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-sign-in',
   imports: [ReactiveFormsModule],
-  templateUrl: './login-component.html',
-  styleUrl: './login-component.css',
+  templateUrl: './sign-in.component.html',
+  styleUrl: './sign-in.component.css',
 })
-export class LoginComponent {
+export class SignInComponent {
   private formBuilder = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
   public isLoading = signal(false);
 
-  public loginForm = this.formBuilder.nonNullable.group({
+  public signInForm = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(10)]]
   });
 
   public onSubmit(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+    if (this.signInForm.invalid) {
+      this.signInForm.markAllAsTouched();
       return;
     }
 
     this.isLoading.set(true);
 
-    this.authService.login(this.loginForm.getRawValue()).subscribe({
+    this.authService.signIn(this.signInForm.getRawValue()).subscribe({
       next: () => {
-        this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
-        this.loginForm.reset();
+        this.snackBar.open('signIn successful!', 'Close', { duration: 3000 });
+        this.signInForm.reset();
         
         setTimeout(() => {
           this.router.navigate(['/app']);
