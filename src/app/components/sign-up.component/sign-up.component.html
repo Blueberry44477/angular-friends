@@ -1,0 +1,130 @@
+<form [formGroup]="signUpForm" (submit)="onSubmit()">
+    <fieldset>
+        <legend>Sign Up</legend>
+
+        @let firstNameCtrl = signUpForm.controls['firstName'];
+        <div class="form__field">
+            <label for="firstName">First Name</label>
+            <input id="firstName" type="text" formControlName="firstName">
+
+            @if (firstNameCtrl.touched && firstNameCtrl.invalid) {
+                <div class="error">
+                    @if (firstNameCtrl.errors?.['required']) {
+                        <span>First Name is required</span>
+                    }
+                    @if (firstNameCtrl.errors?.['minlength']) {
+                        <span>First Name must be at least 6 symbols long</span>
+                    }
+                </div>
+            }
+        </div>
+
+        <div class="form__field">
+            <label for="lastName">Last Name</label>
+            <input id="lastName" type="text" formControlName="lastName">
+        </div>
+
+        @let emailCtrl = signUpForm.controls['email'];
+        <div class="form__field">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email">
+
+            @if (emailCtrl.touched && emailCtrl.invalid ) {
+                <div class="error">
+                    @if (firstNameCtrl.errors?.['required']) {
+                        <span>Email is required</span>
+                    }
+                    @if (emailCtrl.errors?.['email']) {
+                        <span>Wrong email format</span>
+                    }
+                </div>
+            }
+        </div>
+
+        @let dobCtrl = signUpForm.controls['dob'];
+        <div class="form__field">
+            <label for="dob">Date of birth</label>
+            <input id="dob" type="date" formControlName="dob">
+            @if (dobCtrl.touched && dobCtrl.invalid) {
+                <div class="error">
+                    @if (dobCtrl.errors?.['required']) {
+                        <span>Date of birth is required</span>
+                    }
+
+                    @if (dobCtrl.errors?.['underage']) {
+                    <span>
+                        You must be at least {{ dobCtrl.errors?.['underage'].requiredAge }} years old.
+                    </span>
+                }
+                </div>
+            }
+        </div>
+
+        @let sexCtrl = signUpForm.controls['sex'];
+        <fieldset class="form__radio-group">
+            <legend class="form__radio-legend">Sex</legend>
+
+            <div class="form__radio-options">
+                <label class="form__radio-label">
+                    <input type="radio" formControlName="sex" value="MALE">
+                    Male
+                </label>
+
+                <label class="form__radio-label">
+                    <input type="radio" formControlName="sex" value="FEMALE">
+                    Female
+                </label>
+
+            </div>
+            @if (sexCtrl.touched && sexCtrl.invalid) {
+                <div class="error">
+                    @if (sexCtrl.errors?.['required']) {
+                        <span>Sex is required</span>
+                    }
+                </div>
+            }
+        </fieldset>
+
+        @let passwordCtrl = signUpForm.controls['password'];
+        <div class="form__field">
+            <label for="password">Password</label>
+            <input id="password" type="password" formControlName="password">
+
+            @if (passwordCtrl.touched && passwordCtrl.invalid) {
+                <div class="error">
+                    @if (passwordCtrl.errors?.['required']) {
+                        <span>Password is required</span>
+                    }
+
+                    @if (passwordCtrl.errors?.['minlength']) {
+                        <span>Password is too short</span>
+                    }
+                </div>
+            }
+        </div>
+
+        @let passwordConfirmCtrl = signUpForm.controls['passwordConfirm'];
+        <div class="form__field">
+            <label for="password-confirm">Confirm Password</label>
+            <input id="password-confirm" type="password" formControlName="passwordConfirm">
+
+            @if (passwordConfirmCtrl.touched && passwordConfirmCtrl.invalid) {
+                <div class="error">
+                    @if (passwordConfirmCtrl.errors?.['required']) {
+                        <span>Password confirmation is required</span>
+                    }
+
+                    @if (passwordConfirmCtrl.errors?.['minlength']) {
+                        <span>Provided password is too short</span>
+                    }
+
+                    @if (passwordConfirmCtrl.errors?.['passwordMismatch']) {
+                        <span>Passwords do not match</span>
+                    }
+                </div>
+            }
+        </div>
+            
+        <button type="submit">Sign Up</button>
+    </fieldset>
+</form>

@@ -1,0 +1,69 @@
+fieldset.form__radio-group {
+  border: none;
+  padding: 0;
+  margin: 1rem 0;
+  box-shadow: none;
+}
+
+.form__radio-legend {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #475569;
+  padding: 0;
+  margin-bottom: 0.5rem;
+  float: left; /* Fixes browser alignment inconsistencies across legend elements */
+  width: 100%;
+}
+
+/* Container for aligning the radio choices horizontally */
+.form__radio-options {
+  display: flex;
+  gap: 1.5rem;
+  clear: left; /* Restores block flow after floating the legend */
+  padding-top: 0.25rem;
+}
+
+/* Label wrapper for each individual option */
+.form__radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 400; /* Overrides the heavy 600 weight from global label selector */
+  color: #334155;
+  margin-bottom: 0; /* Clears bottom margin inherited from global label selector */
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Native Radio Input Adjustments */
+.form__radio-label input[type="radio"] {
+  /* Inherit dimensions, match border scheme, and add explicit primary accent color tint */
+  width: 1.15rem;
+  height: 1.15rem;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--primary-bg-color); /* Automatically uses your defined #2563eb variable */
+  cursor: pointer;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+/* Optional focus ring styling matching your text inputs */
+.form__radio-label input[type="radio"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+}
+
+/* Validation overrides to match your text input error scheme when invalid and touched */
+fieldset.ng-invalid.ng-touched .form__radio-legend {
+  color: #dc2626; /* Turn the 'Sex' label text red */
+}
+
+fieldset.ng-invalid.ng-touched input[type="radio"] {
+  accent-color: #ef4444; /* Turn the selected dot red if validation fails */
+  outline: 1px solid #ef4444;
+  border-radius: 50%;
+}

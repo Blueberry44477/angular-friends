@@ -8,6 +8,18 @@ interface SignInData {
   password: string
 }
 
+interface SignUpData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phone: string;
+  dob: string;
+  sex: string;
+  country: string;
+  city: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,6 +38,22 @@ export class AuthService {
         this._isAuthenticated.set(true);
       })
     );
+  }
+
+  public signUp(data: SignUpData): Observable<void> {
+    const body = {
+      first_name: data.firstName,
+      last_name: data.lastName,
+      email: data.email,
+      password: data.password,
+      dob: data.dob,
+      phone: data.phone,
+      sex: data.sex,
+      country: data.country,
+      city: data.city
+    }
+
+    return this.http.post<void>(`${this.apiUrl}/signup`, body);
   }
 
   public logout(): void {
