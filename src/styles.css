@@ -1,9 +1,9 @@
 :root {
-    --primary-bg-color: #2563eb;
+  --primary-bg-color: #2563eb;
 }
 
 * {
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 form {
@@ -11,7 +11,11 @@ form {
   margin: 2rem auto;
 }
 
-fieldset {
+.form__fields-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   padding: 2rem;
@@ -26,17 +30,29 @@ legend {
   padding: 0 0.5rem;
 }
 
-.form__field {
+.form__field,
+.form__password-wrapper {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.25rem;
+  row-gap: 4px;
+}
+
+.form__field {
+  position: relative;
+  padding-bottom: 20px;
+
+  .error {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 20px;
+  }
 }
 
 label {
   font-size: 0.875rem;
   font-weight: 600;
   color: #475569;
-  margin-bottom: 0.5rem;
 }
 
 input {
@@ -69,7 +85,6 @@ input.ng-invalid.ng-touched:focus {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  margin-top: 0.5rem;
 }
 
 .error span {
@@ -104,4 +119,23 @@ button[type="submit"]:focus {
 button[type="submit"]:disabled {
   background-color: #94a3b8;
   cursor: not-allowed;
+}
+
+.form__password-wrapper {
+  position: relative;
+}
+
+.form__toggle-password-visibility {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+
+  background: none;
+  border: none;
+
+  cursor: pointer;
+
+  img {
+
+  }
 }

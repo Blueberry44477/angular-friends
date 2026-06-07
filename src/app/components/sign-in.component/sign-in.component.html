@@ -1,5 +1,5 @@
 <form [formGroup]="signInForm" (submit)="onSubmit()">
-    <fieldset>
+    <fieldset class="form__fields-container">
         <legend>Sign In</legend>
 
         @let emailCtrl = signInForm.controls['email'];
@@ -21,8 +21,13 @@
 
         @let passwordCtrl = signInForm.controls['password'];
         <div class="form__field">
-            <label for="password">Password</label>
-            <input id="password" type="password" formControlName="password">
+            <label class="form__password-wrapper">
+                Password
+                <input id="password" [type]="isPasswordVisible() ? 'text' : 'password'" formControlName="password">
+                <button type="button" class="form__toggle-password-visibility" (click)="isPasswordVisible.set(!isPasswordVisible())">
+                    <img [src]="isPasswordVisible() ? 'visibility_lock.svg' : 'visibility.svg'" alt="toggle">
+                </button>
+            </label>
 
             @if (passwordCtrl.invalid && passwordCtrl.touched) {
                 <div class="error">

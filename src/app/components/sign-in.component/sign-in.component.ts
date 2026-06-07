@@ -15,7 +15,10 @@ export class SignInComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private snackBar = inject(MatSnackBar);
-  public isLoading = signal(false);
+
+  public isLoading = signal<boolean>(false);
+  public isPasswordVisible = signal<boolean>(false);
+
 
   public signInForm = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],

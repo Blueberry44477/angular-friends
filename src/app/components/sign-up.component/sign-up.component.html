@@ -1,5 +1,5 @@
 <form [formGroup]="signUpForm" (submit)="onSubmit()">
-    <fieldset>
+    <fieldset class="form__fields-container">
         <legend>Sign Up</legend>
 
         @let firstNameCtrl = signUpForm.controls['firstName'];
@@ -87,8 +87,13 @@
 
         @let passwordCtrl = signUpForm.controls['password'];
         <div class="form__field">
-            <label for="password">Password</label>
-            <input id="password" type="password" formControlName="password">
+            <label class="form__password-wrapper">
+                Password
+                <input id="password" [type]="isPasswordVisible() ? 'text' : 'password'" formControlName="password">
+                <button type="button" class="form__toggle-password-visibility" (click)="isPasswordVisible.set(!isPasswordVisible())">
+                    <img [src]="isPasswordVisible() ? 'visibility_lock.svg' : 'visibility.svg'" alt="toggle">
+                </button>
+            </label>
 
             @if (passwordCtrl.touched && passwordCtrl.invalid) {
                 <div class="error">
@@ -105,8 +110,13 @@
 
         @let passwordConfirmCtrl = signUpForm.controls['passwordConfirm'];
         <div class="form__field">
-            <label for="password-confirm">Confirm Password</label>
-            <input id="password-confirm" type="password" formControlName="passwordConfirm">
+            <label class="form__password-wrapper">
+                Confirm Password
+                <input id="password-confirm" [type]="isPasswordConfirmVisible() ? 'text' : 'password'" formControlName="passwordConfirm">
+                <button type="button" class="form__toggle-password-visibility" (click)="isPasswordConfirmVisible.set(!isPasswordConfirmVisible())">
+                    <img [src]="isPasswordConfirmVisible() ? 'visibility_lock.svg' : 'visibility.svg'" alt="toggle">
+                </button>
+            </label>
 
             @if (passwordConfirmCtrl.touched && passwordConfirmCtrl.invalid) {
                 <div class="error">

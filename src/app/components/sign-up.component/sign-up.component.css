@@ -1,8 +1,12 @@
 fieldset.form__radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
   border: none;
-  padding: 0;
-  margin: 1rem 0;
+  padding: 0 0 20px 0;
   box-shadow: none;
+  margin: 0;
 }
 
 .form__radio-legend {
@@ -10,28 +14,23 @@ fieldset.form__radio-group {
   font-weight: 600;
   color: #475569;
   padding: 0;
-  margin-bottom: 0.5rem;
-  float: left; /* Fixes browser alignment inconsistencies across legend elements */
   width: 100%;
 }
 
-/* Container for aligning the radio choices horizontally */
 .form__radio-options {
   display: flex;
-  gap: 1.5rem;
-  clear: left; /* Restores block flow after floating the legend */
-  padding-top: 0.25rem;
+  gap: 16px;
+  clear: left;
 }
 
-/* Label wrapper for each individual option */
 .form__radio-label {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 1rem;
-  font-weight: 400; /* Overrides the heavy 600 weight from global label selector */
+  font-weight: 400;
   color: #334155;
-  margin-bottom: 0; /* Clears bottom margin inherited from global label selector */
+  margin-bottom: 0;
   cursor: pointer;
   user-select: none;
 }

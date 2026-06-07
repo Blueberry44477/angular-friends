@@ -17,7 +17,10 @@ export class SignUpComponent {
   private authService = inject(AuthService);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
-  public isLoading = signal(false);
+
+  public isLoading = signal<boolean>(false);
+  public isPasswordVisible = signal<boolean>(false);
+  public isPasswordConfirmVisible = signal<boolean>(false);
 
   public signUpForm = this.formBuilder.nonNullable.group({
     firstName: ['', [Validators.required, Validators.minLength(2)]],
