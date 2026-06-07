@@ -36,12 +36,12 @@
                     }
 
                     @if (passwordCtrl.errors?.['minlength']) {
-                        <span>Password must be at least 6 symbols</span>
+                        <span>Password must be at least {{ passwordCtrl.errors?.['minlength'].requiredLength }} symbols</span>
                     }
                 </div>
             }
         </div>
 
-        <button type="submit">Sign In</button>
+        <button type="submit" [disabled]="signInForm.invalid && signInForm.touched || isLoading()" >Sign In</button>
     </fieldset>
 </form>

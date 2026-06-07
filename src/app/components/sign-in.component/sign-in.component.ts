@@ -34,17 +34,25 @@ export class SignInComponent {
 
     this.authService.signIn(this.signInForm.getRawValue()).subscribe({
       next: () => {
-        this.snackBar.open('signIn successful!', 'Close', { duration: 3000 });
+        this.snackBar.open('Sign In successful!', 'Close', { duration: 3000 });
         this.signInForm.reset();
         
-        setTimeout(() => {
-          this.router.navigate(['/app']);
-        }, 1000);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.isLoading.set(false);
-        const message = err.status === 401 ? 'Invalid email or password' : 'An unexpected error occurred';
-        this.snackBar.open(message, 'Close', { duration: 5000 });
+
+        switch (err.status) {
+          case 401:
+            this.snackBar.open('Invalid email or password', 'Close', { duration: 5000 });
+            this.signInForm.patchValue({password: ''});
+            this.signInForm.controls['password'].markAsUntouched();
+            break;
+
+          default:
+            this.snackBar.open('An unexpected error occurred', 'Close', { duration: 5000 });
+            break;
+        }
       }
     });
   }
