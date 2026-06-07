@@ -19,7 +19,6 @@ export class SignInComponent {
   public isLoading = signal<boolean>(false);
   public isPasswordVisible = signal<boolean>(false);
 
-
   public signInForm = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(10)]]

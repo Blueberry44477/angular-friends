@@ -5,12 +5,21 @@
     
     <nav class="header__nav" aria-label="Main Navigation">
         <ul class="header__list">
-            <li class="header__item">
-                <a routerLink="/sign-up" class="header__link" routerLinkActive="header__link-active">Sign Up</a>
-            </li>
-            <li class="header__item">
-                <a routerLink="/sign-in" class="header__link" routerLinkActive="header__link-active">Sign In</a>
-            </li>
+            <!-- <li class="header__item">
+                <a routerLink="/home" class="header__link" routerLinkActive="header__link-active">Home</a>
+            </li> -->
+            @if (authService.isAuthenticated()) {
+                <li class="header__item">
+                    <button class="header__link" (click)="authService.logout()" type="button">Logout</button>
+                </li>
+            } @else {
+                <li class="header__item">
+                    <a routerLink="/sign-up" class="header__link" routerLinkActive="header__link-active">Sign Up</a>
+                </li>
+                <li class="header__item">
+                    <a routerLink="/sign-in" class="header__link" routerLinkActive="header__link-active">Sign In</a>
+                </li>
+            }
         </ul>
     </nav>
 </header>

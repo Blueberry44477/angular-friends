@@ -32,7 +32,7 @@ export class AuthService {
   public isAuthenticated = this._isAuthenticated.asReadonly();
 
   public signIn(data: SignInData): Observable<string> {
-    return this.http.post(`${this.apiUrl}/signin}`, data, {responseType: 'text'}).pipe(
+    return this.http.post(`${this.apiUrl}/signin`, data, {responseType: 'text'}).pipe(
       tap((token) => {
         localStorage.setItem('token', token);
         this._isAuthenticated.set(true);
@@ -59,7 +59,7 @@ export class AuthService {
   public logout(): void {
     localStorage.removeItem('token');
     this._isAuthenticated.set(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/sign-in']);
   }
 
   private hasToken(): boolean {
