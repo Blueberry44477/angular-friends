@@ -42,6 +42,8 @@
             }
         </div>
 
+        <button type="button" (click)="test()">Set Fields</button>
+
         <button type="submit" [disabled]="signInForm.invalid && signInForm.touched || isLoading()" >Sign In</button>
     </fieldset>
 </form>

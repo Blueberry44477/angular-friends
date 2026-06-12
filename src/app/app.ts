@@ -1,4 +1,4 @@
-import { HeaderComponent } from './components/header.component/header.component';
+import { HeaderComponent } from './component/header.component/header.component';
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 

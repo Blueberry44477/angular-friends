@@ -5,9 +5,6 @@
     
     <nav class="header__nav" aria-label="Main Navigation">
         <ul class="header__list">
-            <!-- <li class="header__item">
-                <a routerLink="/home" class="header__link" routerLinkActive="header__link-active">Home</a>
-            </li> -->
             @if (authService.isAuthenticated()) {
                 <li class="header__item">
                     <button class="header__link" (click)="authService.logout()" type="button">Logout</button>

@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth-service';
+import { AuthService } from '../../service/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -23,6 +23,13 @@ export class SignInComponent {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(10)]]
   });
+
+  public test(): void {
+    this.signInForm.setValue({
+      email: 'Aaliyah23@hotmail.com',
+      password: 'wHLVIz3jmembRts'
+    });
+  }
 
   public onSubmit(): void {
     if (this.signInForm.invalid) {

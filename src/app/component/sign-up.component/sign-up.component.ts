@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
-import { AuthService } from '../../services/auth-service';
+import { AuthService } from '../../service/auth-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { passwordMatchValidator } from '../../validators/passwordMatchValidator';
-import { minAgeValidator } from '../../validators/minAgeValidator';
+import { passwordMatchValidator } from '../../validator/passwordMatchValidator';
+import { minAgeValidator } from '../../validator/minAgeValidator';
 
 @Component({
   selector: 'app-sign-up',
