@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { AccessTokenDTO } from '../dto/access-token-dto';
@@ -28,31 +28,31 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private readonly apiUrl = 'http://localhost:8080/api/v1/auth';
-  private accessTokenData: AccessTokenDTO | null = null;
+  private accessTokenData = signal<AccessTokenDTO | null>(null);
+  public isAuthenticated = computed(() => this.accessTokenData() !== null);
 
   // Access Token -------------------------------------------------------------
   public setAccessTokenData(data: AccessTokenDTO): void {
-    this.accessTokenData = data;
+    this.accessTokenData.set(data);
   }
   
   public getAccessTokenData(): AccessTokenDTO | null {
-    return this.accessTokenData ? this.accessTokenData : null;
-  }
-  public getAccessToken(): string | null {
-    return this.accessTokenData ? this.accessTokenData.accessToken : null;
+    return this.accessTokenData();
   }
 
-  public isAuthenticated(): boolean { return this.accessTokenData !== null; }
+  public getAccessToken(): string | null {
+    return this.accessTokenData()?.accessToken ?? null;
+  }
 
   public logout(): void {
-    this.accessTokenData = null;
+    this.accessTokenData.set(null);
     this.router.navigate(['/sign-in']);
   }
 
   // Auth
   public signIn(signInData: SignInData): Observable<AccessTokenDTO> {
-    return this.http.post<AccessTokenDTO>(`${this.apiUrl}/signin`, signInData)
-                    .pipe(tap((response) => { this.setAccessTokenData(response); }));
+    return this.http.post<AccessTokenDTO>(`${this.apiUrl}/signin`, signInData, { withCredentials: true })
+                    .pipe(tap((accessTokenDTO) => { this.setAccessTokenData(accessTokenDTO); }));
   }
 
   public signUp(data: SignUpData): Observable<void> {
@@ -73,6 +73,6 @@ export class AuthService {
 
   public refreshTokens(): Observable<AccessTokenDTO> {
     return this.http.post<AccessTokenDTO>(`${this.apiUrl}/refresh`, {}, { withCredentials: true })
-                    .pipe(tap((accessTokenDto) => { this.setAccessTokenData(accessTokenDto) }));
+                    .pipe(tap((accessTokenDTO) => { this.setAccessTokenData(accessTokenDTO) }));
   }
 }
