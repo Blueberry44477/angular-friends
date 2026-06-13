@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { finalize, Observable, tap } from 'rxjs';
 import { AccessTokenDTO } from '../dto/access-token-dto';
 
 interface SignInData {
@@ -32,7 +32,7 @@ export class AuthService {
   public isAuthenticated = computed(() => this.accessTokenData() !== null);
 
   // Access Token -------------------------------------------------------------
-  public setAccessTokenData(data: AccessTokenDTO): void {
+  public setAccessTokenData(data: AccessTokenDTO | null): void {
     this.accessTokenData.set(data);
   }
   
@@ -43,18 +43,13 @@ export class AuthService {
   public getAccessToken(): string | null {
     return this.accessTokenData()?.accessToken ?? null;
   }
-
-  public logout(): void {
-    this.accessTokenData.set(null);
-    this.router.navigate(['/sign-in']);
-  }
-
+  
   // Auth
   public signIn(signInData: SignInData): Observable<AccessTokenDTO> {
     return this.http.post<AccessTokenDTO>(`${this.apiUrl}/sign-in`, signInData, { withCredentials: true })
-                    .pipe(tap((accessTokenDTO) => { this.setAccessTokenData(accessTokenDTO); }));
+    .pipe(tap((accessTokenDTO) => { this.setAccessTokenData(accessTokenDTO); }));
   }
-
+  
   public signUp(data: SignUpData): Observable<void> {
     const body = {
       first_name: data.firstName,
@@ -67,8 +62,17 @@ export class AuthService {
       country: data.country,
       city: data.city
     }
-
+    
     return this.http.post<void>(`${this.apiUrl}/sign-up`, body);
+  }
+  
+  public signOut(): void {
+    this.http.post<void>(`${this.apiUrl}/sign-out`, {}, { withCredentials: true })
+             .pipe(finalize(() => {
+                this.accessTokenData.set(null);
+                this.router.navigate(['/sign-in']);
+             }))
+             .subscribe();
   }
 
   public refreshTokens(): Observable<AccessTokenDTO> {

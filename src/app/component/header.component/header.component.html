@@ -7,7 +7,7 @@
         <ul class="header__list">
             @if (authService.isAuthenticated()) {
                 <li class="header__item">
-                    <button class="header__link" (click)="authService.logout()" type="button">Logout</button>
+                    <button class="header__link" (click)="authService.signOut()" type="button">Sign Out</button>
                 </li>
             } @else {
                 <li class="header__item">
