@@ -51,7 +51,7 @@ export class AuthService {
 
   // Auth
   public signIn(signInData: SignInData): Observable<AccessTokenDTO> {
-    return this.http.post<AccessTokenDTO>(`${this.apiUrl}/signin`, signInData, { withCredentials: true })
+    return this.http.post<AccessTokenDTO>(`${this.apiUrl}/sign-in`, signInData, { withCredentials: true })
                     .pipe(tap((accessTokenDTO) => { this.setAccessTokenData(accessTokenDTO); }));
   }
 
@@ -68,7 +68,7 @@ export class AuthService {
       city: data.city
     }
 
-    return this.http.post<void>(`${this.apiUrl}/signup`, body);
+    return this.http.post<void>(`${this.apiUrl}/sign-up`, body);
   }
 
   public refreshTokens(): Observable<AccessTokenDTO> {
